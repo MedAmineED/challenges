@@ -3,6 +3,7 @@ function rgb(r, g, b){
     let rest;
     let allrest = [];
     let allHex = [];
+    let hexLetter = ["A", "B", "C", "D", "E", "F"];
     let myHex;
 
     for (let i = 0; i < myArg.length; i++){
@@ -13,48 +14,23 @@ function rgb(r, g, b){
                                     rest = String(myArg[i]).padStart(2, '0');
                                     allrest.push(rest);
     }   else if (myArg[i] >= 10 && myArg[i] < 16) {
-                                switch(myArg[i]) {
-                                    case 10: rest = "0A";
-                                        break;
-                                    case 11: rest = "0B";
-                                        break;
-                                    case 12: rest = "0C";
-                                        break;
-                                    case 13: rest = "0D";
-                                        break;
-                                    case 14: rest = "0E";
-                                        break;
-                                    case 15: rest = "0F";
-                                        break;
-                                            }
+                                    rest = "0" + hexLetter[myArg[i] % 10];
                                     allrest.push(rest);
     }
         else if (myArg[i] >= 16 && myArg[i] <= 255){
                                     while (myArg[i] > 0) {
-                                        rest = myArg[i] % 16;
-                                        myArg[i] = Math.floor(myArg[i] / 16);
+                                            rest = myArg[i] % 16;
+                                            myArg[i] = Math.floor(myArg[i] / 16);
                                         if (rest > 9) {
-                                                    switch(rest) {
-                                                        case 10: rest = "A";
-                                                            break;
-                                                        case 11: rest = "B";
-                                                            break;
-                                                        case 12: rest = "C";
-                                                            break;
-                                                        case 13: rest = "D";
-                                                            break;
-                                                        case 14: rest = "E";
-                                                            break;
-                                                        case 15: rest = "F";
-                                                            break;
-                                                                }
-        }
+                                                rest = hexLetter[rest % 10];
+                                                }
+                                            allrest.unshift(rest);
+                                        }
+        }else{
+            rest = "FF";
+            allrest.push(rest);
+            }
 
-        allrest.unshift(rest);
-    }}else{
-        rest = "FF";
-        allrest.push(rest);
-    }
     myHex = allrest.join("");
     allHex.push(myHex);
     allrest=[];
